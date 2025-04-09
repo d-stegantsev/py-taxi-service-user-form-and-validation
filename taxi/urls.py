@@ -1,6 +1,7 @@
 from django.urls import path
 
 from .views import (
+from taxi.views import (
     index,
     CarListView,
     CarDetailView,
@@ -10,16 +11,13 @@ from .views import (
     DriverListView,
     DriverDetailView,
     DriverCreateView,
-    DriverUpdateView,
+    DriverLicenseUpdateView,
     DriverDeleteView,
     ManufacturerListView,
     ManufacturerCreateView,
     ManufacturerUpdateView,
     ManufacturerDeleteView,
-    AssignDriverView,
-    RemoveDriverView,
 )
-
 urlpatterns = [
     path("", index, name="index"),
     path(
@@ -42,24 +40,12 @@ urlpatterns = [
         ManufacturerDeleteView.as_view(),
         name="manufacturer-delete",
     ),
-    path(
-        route="cars/", view=CarListView.as_view(), name="car-list"
-    ),
-    path(
-        "cars/<int:pk>/", CarDetailView.as_view(), name="car-detail"
-    ),
-    path(
-        "cars/create/", CarCreateView.as_view(), name="car-create"
-    ),
-    path(
-        "cars/<int:pk>/update/", CarUpdateView.as_view(), name="car-update"
-    ),
-    path(
-        "cars/<int:pk>/delete/", CarDeleteView.as_view(), name="car-delete"
-    ),
-    path(
-        "drivers/", DriverListView.as_view(), name="driver-list"
-    ),
+    path("cars/", CarListView.as_view(), name="car-list"),
+    path("cars/<int:pk>/", CarDetailView.as_view(), name="car-detail"),
+    path("cars/create/", CarCreateView.as_view(), name="car-create"),
+    path("cars/<int:pk>/update/", CarUpdateView.as_view(), name="car-update"),
+    path("cars/<int:pk>/delete/", CarDeleteView.as_view(), name="car-delete"),
+    path("drivers/", DriverListView.as_view(), name="driver-list"),
     path(
         "drivers/<int:pk>/", DriverDetailView.as_view(), name="driver-detail"
     ),
@@ -67,24 +53,14 @@ urlpatterns = [
         "drivers/create/", DriverCreateView.as_view(), name="driver-create"
     ),
     path(
-        route="drivers/<int:pk>/update/",
-        view=DriverUpdateView.as_view(),
+        "drivers/<int:pk>/update/",
+        DriverLicenseUpdateView.as_view(),
         name="driver-update"
     ),
     path(
-        route="drivers/<int:pk>/delete/",
-        view=DriverDeleteView.as_view(),
+        "drivers/<int:pk>/delete/",
+        DriverDeleteView.as_view(),
         name="driver-delete"
-    ),
-    path(
-        route="cars/<int:pk>/assign/",
-        view=AssignDriverView.as_view(),
-        name="assign-driver"
-    ),
-    path(
-        route="cars/<int:pk>/remove/",
-        view=RemoveDriverView.as_view(),
-        name="remove-driver"
     ),
 ]
 
